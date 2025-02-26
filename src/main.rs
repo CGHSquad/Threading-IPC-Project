@@ -2,7 +2,9 @@ mod run_phase1;
 mod run_phase2;
 mod run_phase3;
 mod run_phase4;
-mod ipc_phase; // Import module for IPC phase
+mod ipc_phase;
+mod tests;
+// Import module for IPC phase
 
 fn main() {
     // Simple menu to select which phase to execute
