@@ -28,3 +28,9 @@ pub fn run_phase4() {
 
     thread.join().unwrap();
 }
+
+pub(crate) fn run() {
+    println!("Starting Phase 4...");
+    run_phase4(); // Call the actual logic
+    println!("Phase 4 Completed.");
+}

@@ -26,3 +26,9 @@ pub fn run_phase2() {
 
     println!("Final Balance: {}", account.lock().unwrap().balance);
 }
+
+pub(crate) fn run() {
+    println!("Starting Phase 2...");
+    run_phase2(); // Call the actual logic
+    println!("Phase 2 Completed.");
+}
