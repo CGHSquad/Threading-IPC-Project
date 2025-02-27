@@ -34,41 +34,47 @@ fn test_ipc_data_integrity() {
 
 #[test]
 fn test_phase1_concurrent_transactions() {
+    use std::sync::{Arc, Mutex};
+    use std::thread;
+
+    // BankAccount structure with balance
     struct BankAccount {
         balance: i32,
     }
 
-    // Shared account wrapped in Arc and Mutex for thread-safe access
+    // Shared account with initial balance
     let account = Arc::new(Mutex::new(BankAccount { balance: 100 }));
     let mut handles = vec![];
 
-    // Spawn multiple threads to deposit money concurrently
+    // Simulate concurrent deposits
     for _ in 0..3 {
         let account_clone = Arc::clone(&account);
         handles.push(thread::spawn(move || {
             let mut acc = account_clone.lock().unwrap();
-            acc.balance += 50;
+            acc.balance += 50; // Deposit operation
         }));
     }
 
-    // Spawn multiple threads to withdraw money concurrently
+    // Simulate concurrent withdrawals
     for _ in 0..3 {
         let account_clone = Arc::clone(&account);
         handles.push(thread::spawn(move || {
             let mut acc = account_clone.lock().unwrap();
-            acc.balance -= 20;
+            acc.balance -= 20; // Withdrawal operation
         }));
     }
 
-    // Wait for all threads to finish
+    // Join all threads
     for handle in handles {
         handle.join().unwrap();
     }
 
-    // Check final balance
+    // Final balance check
     let final_balance = account.lock().unwrap().balance;
-    assert_eq!(final_balance, 220, "Final balance should be 220");
+    let expected_balance = 100 + (3 * 50) - (3 * 20); // 100 + 150 - 60 = 190
+    assert_eq!(final_balance, expected_balance, "Final balance should be 190");
 }
+
 
 #[test]
 fn test_phase2_protect_shared_resource() {
