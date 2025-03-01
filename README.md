@@ -13,7 +13,7 @@ To build and run this project, you need the following dependencies:
 
 - **Rust** (Install via [Rust official site](https://www.rust-lang.org/tools/install))
 - **Cargo** (Rust's package manager, included with Rust installation)
-- **Linux/MacOS** (Required for `nix` IPC support; tested on Ubuntu 24.04.2 LTS)
+- **Linux** (Required for `nix` IPC support; tested on Ubuntu 24.04.2 LTS)
 - **Git** (For version control)
 - **VirtualBox** (For running a Linux VM if using Windows)
 - **Ubuntu 24.04.2 LTS** (Recommended OS for development)
